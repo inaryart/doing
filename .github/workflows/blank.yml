@@ -4,48 +4,34 @@ name: doing
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    # Triggers the workflow on push or pull request events but only for the main branch
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell
-      - name: Run GitSyning
-        env:
-          ENV_PRIVATE_SSH_CMP: '${{ secrets.PRIVATE_SSH_CMP }}'
-        run: |
-          Get-Service ssh-agent | Select StartType
-          Set-Service ssh-agent -StartupType Manual
-          Start-Service ssh-agent
-          echo "${{secrets.PRIVATE_SSH_CMP}}" > ./my_ssh.key
-          icacls ./my_ssh.key
-          icacls ./my_ssh.key /inheritancelevel:r
-          icacls ./my_ssh.key /grant:r "BUILTIN\Administrators:R"
-          icacls ./my_ssh.key
-          ssh-add ./my_ssh.key
-          mkdir -p ~/.ssh
-          ssh-keyscan -t rsa,dsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts
-          icacls ~/.ssh/known_hosts /inheritancelevel:r
-          icacls ~/.ssh/known_hosts /grant:r "BUILTIN\Administrators:R"
-          cat ~/.ssh/known_hosts
-          ssh -vT git@github.com
-          git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe
-          git clone git@github.com:inaryart/GitSyning.git
-          cd GitSyning
-          python Syning.py
+            # Runs a set of commands using the runners shell
+            - name: Run GitSyning
+              run: |
+                  eval `ssh-agent -s`
+                  ssh-add - <<< '${{ secrets.PRIVATE_SSH_CMP }}'
+                  # ssh-add <(echo "$PRIVATE_SSH_CMP")
+                  ls
+                  git clone git@github.com:inaryart/GitSyning.git
+                  cd GitSyning
+                  python Syning.py
