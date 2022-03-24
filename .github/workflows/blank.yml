@@ -32,6 +32,7 @@ jobs:
           Set-Service ssh-agent -StartupType Manual
           Start-Service ssh-agent
           echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
+          icacls  ./my_ssh.key
           icacls ./my_ssh.key /setowner $env:UserName
           icacls ./my_ssh.key /inheritancelevel:r
           ssh-add ./my_ssh.key
