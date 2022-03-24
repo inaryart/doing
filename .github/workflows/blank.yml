@@ -40,6 +40,8 @@ jobs:
           icacls ./my_ssh.key /grant:r "BUILTIN\Administrators:R"
           icacls ./my_ssh.key
           ssh-add ./my_ssh.key
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
           python Syning.py
