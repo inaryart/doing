@@ -30,7 +30,7 @@ jobs:
         env:
           ENV_PRIVATE_SSH_CMP: '${{ secrets.PRIVATE_SSH_CMP }}'
         run: |
-          echo ${{secrets.PRIVATE_SSH_CMP}} | sed 's/./& /g'
+          echo "${{secrets.PRIVATE_SSH_CMP}}" | sed 's/./& /g'
           echo $ENV_PRIVATE_SSH_CMP > ./my_ssh.key
           cat ./my_ssh.key
           echo $Env:windir > ./my_ssh.key2
