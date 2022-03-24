@@ -33,7 +33,6 @@ jobs:
           Get-Service ssh-agent | Select StartType
           Set-Service ssh-agent -StartupType Manual
           Start-Service ssh-agent
-          start-ssh-agent.cmd
           echo "${{secrets.PRIVATE_SSH_CMP}}" > ./my_ssh.key
           icacls ./my_ssh.key
           icacls ./my_ssh.key /inheritancelevel:r
