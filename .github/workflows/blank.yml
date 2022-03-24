@@ -28,7 +28,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run GitSyning
         run: |
-          echo '${{ secrets.PRIVATE_SSH_CMP }}' >> my_ssh.key
+          Start-Service ssh-agent
+          Set-Service ssh-agent -StartupType Automatic
+          echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
           cat ./my_ssh.key
           ssh-add ./my_ssh.key
           ls
