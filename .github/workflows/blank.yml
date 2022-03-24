@@ -45,8 +45,6 @@ jobs:
           icacls ~/.ssh/known_hosts /inheritancelevel:r
           icacls ~/.ssh/known_hosts /grant:r "BUILTIN\Administrators:R"
           cat ~/.ssh/known_hosts
-          ssh-keyscan -H github.com > ~/.ssh/known_hosts
-          ssh-keygen -f ~/.ssh/known_hosts -H -F github.com
           ssh -vT git@github.com
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
