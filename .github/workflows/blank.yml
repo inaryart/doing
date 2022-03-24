@@ -30,8 +30,16 @@ jobs:
         env:
           ENV_PRIVATE_SSH_CMP: '${{ secrets.PRIVATE_SSH_CMP }}'
         run: |
+          Get-Service ssh-agent | Select StartType
+          Set-Service ssh-agent -StartupType Manual
+          Start-Service ssh-agent
           echo "${{secrets.PRIVATE_SSH_CMP}}" | sed 's/./& /g'
-          echo $ENV_PRIVATE_SSH_CMP > ./my_ssh.key
-          cat ./my_ssh.key
-          echo $Env:windir > ./my_ssh.key2
-          cat ./my_ssh.key2
+          echo "${{secrets.PRIVATE_SSH_CMP}}" > ./my_ssh.key
+          icacls ./my_ssh.key
+          icacls ./my_ssh.key /inheritancelevel:r
+          icacls ./my_ssh.key /grant:r "BUILTIN\Administrators:R"
+          icacls ./my_ssh.key
+          ssh-add ./my_ssh.key
+          git clone git@github.com:inaryart/GitSyning.git
+          cd GitSyning
+          python Syning.py
