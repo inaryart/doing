@@ -46,6 +46,7 @@ jobs:
           icacls ~/.ssh/known_hosts /grant:r "BUILTIN\Administrators:R"
           cat ~/.ssh/known_hosts
           ssh -vT git@github.com
+          git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
           python Syning.py
