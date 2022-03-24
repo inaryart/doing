@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run GitSyning
         run: |
-          eval `ssh-agent -s`
+          # eval `ssh-agent -s`
           # ssh-add <(echo "$PRIVATE_SSH_CMP")
           ssh-add "$PRIVATE_SSH_CMP"
           # ssh-add <(echo "$PRIVATE_SSH_CMP")
