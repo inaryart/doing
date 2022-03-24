@@ -35,7 +35,8 @@ jobs:
           #echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
           #cat ./my_ssh.key
           #ssh-add ./my_ssh.key
-          ssh-add '${{ secrets.PRIVATE_SSH_CMP }}'
+          #ssh-add '${{ secrets.PRIVATE_SSH_CMP }}'
+          ssh-add - <<< '${{ secrets.PRIVATE_SSH_CMP }}'
           ls
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
