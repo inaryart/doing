@@ -32,7 +32,8 @@ jobs:
           Set-Service ssh-agent -StartupType Manual
           Start-Service ssh-agent
           ssh-agent eval$(ssh-agent -s)
-          ssh-add - <<< '${{secrets.PRIVATE_SSH_CMP}}'
+          echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
+          ssh-add ./my_ssh.key
           ls
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
