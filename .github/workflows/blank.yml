@@ -29,9 +29,8 @@ jobs:
       - name: Run GitSyning
         run: |
           Get-Service ssh-agent | Select StartType
-          Set-Service -StartupType Manual
+          Set-Service ssh-agent -StartupType Manual
           Start-Service ssh-agent
-          Set-Service ssh-agent -StartupType Automatic
           echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
           cat ./my_ssh.key
           ssh-add ./my_ssh.key
