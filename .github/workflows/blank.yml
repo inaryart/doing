@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run GitSyning
         run: |
-          Get-Service ssh-agent
+          Get-Service ssh-agent | Select StartType
           Set-Service -StartupType Manual
           Start-Service ssh-agent
           Set-Service ssh-agent -StartupType Automatic
