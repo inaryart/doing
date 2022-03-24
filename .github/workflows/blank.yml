@@ -33,7 +33,7 @@ jobs:
           Start-Service ssh-agent
           ssh-agent eval$(ssh-agent -s)
           echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
-          cat ./my_ssh.key | ssh-add -k -
+          cat ./my_ssh.key | ssh-add -k
           ls
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
