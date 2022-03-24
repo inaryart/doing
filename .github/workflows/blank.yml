@@ -34,10 +34,8 @@ jobs:
           echo '${{ secrets.PRIVATE_SSH_CMP }}' >> ./my_ssh.key
           icacls ./my_ssh.key
           icacls ./my_ssh.key /inheritancelevel:r
-          icacls ./my_ssh.key /remove:g "BUILTIN\Administrators"
-          icacls ./my_ssh.key /remove:g "NT AUTHORITY\SYSTEM"
+          icacls ./my_ssh.key /grant:r "BUILTIN\Users:R"
           icacls ./my_ssh.key
-          icacls ./my_ssh.key /setowner BUILTIN\Users
           ssh-add ./my_ssh.key
           git clone git@github.com:inaryart/GitSyning.git
           cd GitSyning
