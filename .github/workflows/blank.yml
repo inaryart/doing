@@ -30,6 +30,6 @@ jobs:
               run: |
                   eval `ssh-agent -s`
                   ssh-add - <<< '${{ secrets.PRIVATE_SSH_CMP }}'
-                  git clone git@github.com:inaryart/GitSyning.git
+                  git clone ${TARGET}
                   cd GitSyning
                   python Syning.py
